@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Loud Light Films creates affordable, AI-powered music videos for independent artists. Full music videos, visualizers, lyric videos, and promotional clips.">
+    <meta name="theme-color" content="#101014">
+    <title>Loud Light Films | Your sound. In full view.</title>
+    <style>
+      :root {
+        --bg: #101014;
+        --panel: #19191f;
+        --ink: #f5f2eb;
+        --muted: #b4b1bd;
+        --line: #ffffff24;
+        --lime: #dbff73;
+        --purple: #ac92ff;
+        --radius: 20px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.65;
+      }
+      a { color: inherit; text-decoration: none; }
+      button, input, textarea, select { font: inherit; }
+      a:focus-visible, button:focus-visible, input:focus-visible,
+      textarea:focus-visible, select:focus-visible, summary:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 5px;
+      }
+      .skip { position: absolute; top: -90px; left: 20px; z-index: 20; padding: 10px; background: var(--lime); color: var(--bg); }
+      .skip:focus { top: 10px; }
+      .wrap { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
+      .site-header { position: sticky; top: 0; z-index: 10; background: #101014f5; border-bottom: 1px solid var(--line); }
+      .nav { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+      .brand { display: flex; align-items: center; gap: 12px; }
+      .brand-mark { width: 34px; height: 40px; background: var(--lime); clip-path: polygon(42% 0, 100% 0, 64% 42%, 95% 42%, 18% 100%, 35% 56%, 0 56%); }
+      .brand-name { font-size: 17px; font-weight: 900; line-height: 1.08; letter-spacing: -.6px; }
+      .brand-name small { display: block; font-size: 10px; font-weight: 500; letter-spacing: 4px; margin-top: 5px; }
+      .nav-links { display: flex; gap: 26px; align-items: center; font-size: 13px; }
+      .nav-links > a:not(.button) { color: var(--muted); }
+      .nav-links a:hover { color: var(--lime); }
+      .button { display: inline-flex; align-items: center; justify-content: center; gap: 20px; padding: 14px 23px; min-height: 50px; border: 1px solid var(--lime); background: var(--lime); color: var(--bg); font-size: 13px; font-weight: 800; border-radius: 6px; cursor: pointer; transition: transform .2s; }
+      .button:hover { transform: translateY(-2px); }
+      .nav-links .button:hover { color: var(--bg); }
+      .button.secondary { background: transparent; border-color: var(--line); color: var(--ink); }
+      .eyebrow { margin: 0 0 22px; color: var(--lime); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+      .hero { padding: 84px 0 62px; display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 45px; }
+      h1 { font-size: clamp(58px, 7vw, 94px); line-height: .98; letter-spacing: -6px; margin: 0 0 30px; }
+      h1 em { font-style: normal; color: var(--lime); }
+      .hero-copy { color: var(--muted); font-size: 19px; line-height: 1.65; max-width: 510px; }
+      .hero-copy strong { color: var(--ink); font-weight: 500; }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+      .fine { color: var(--muted); font-size: 12px; }
+      .hero-art { aspect-ratio: 4 / 4.6; position: relative; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: radial-gradient(ellipse at 50% 45%, #bd8fff55, transparent 50%), linear-gradient(140deg, #282138, #17171e 60%); }
+      .art-grid { position: absolute; inset: 0; opacity: .3; background-image: linear-gradient(#ffffff16 1px, transparent 1px), linear-gradient(90deg, #ffffff16 1px, transparent 1px); background-size: 45px 45px; }
+      .orb { position: absolute; width: 76%; aspect-ratio: 1; top: 13%; left: 12%; border-radius: 50%; background: radial-gradient(circle at 32% 25%, #fff6db, #d9ff73 23%, #9383db 50%, #211b39 72%); box-shadow: 0 0 90px #ac92ff35, inset -25px -30px 50px #0c0b1c; }
+      .orbit { position: absolute; width: 110%; height: 30%; top: 34%; left: -5%; border: 2px solid #e2ff9dcc; border-radius: 50%; transform: rotate(-35deg); box-shadow: 0 0 18px #dbff7333; }
+      .art-top, .art-bottom { position: absolute; left: 24px; right: 24px; display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 1.5px; }
+      .art-top { top: 23px; }
+      .art-top span:last-child { color: var(--lime); }
+      .art-bottom { bottom: 23px; color: var(--muted); }
+      .art-title { position: absolute; left: 25px; bottom: 55px; font-size: clamp(24px, 3vw, 39px); letter-spacing: -1.5px; font-weight: 800; line-height: 1.1; }
+      .strip { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; border-block: 1px solid var(--line); padding: 23px 0; font-size: 11px; letter-spacing: 1.7px; color: var(--muted); text-transform: uppercase; }
+      .strip span::before { content: '+'; color: var(--lime); margin-right: 11px; }
+      section { padding: 90px 0; }
+      .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 35px; }
+      h2 { font-size: clamp(35px, 4.5vw, 58px); line-height: 1.07; letter-spacing: -2.5px; margin: 0; }
+      .section-head > p { max-width: 350px; color: var(--muted); font-size: 14px; margin: 0; }
+      .feature { display: grid; grid-template-columns: 1.1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+      .feature-main { padding: 38px; background: var(--lime); color: var(--bg); }
+      .feature-main .eyebrow { color: #344715; }
+      .feature-main h3 { font-size: 34px; line-height: 1.15; letter-spacing: -1px; margin: 15px 0; }
+      .feature-main p { max-width: 450px; font-size: 15px; }
+      .feature-list { padding: 22px 35px; background: var(--panel); }
+      .feature-list div { padding: 18px 0; border-bottom: 1px solid var(--line); display: flex; gap: 20px; align-items: start; }
+      .feature-list div:last-child { border: 0; }
+      .feature-list b { font-size: 22px; color: var(--lime); min-width: 28px; }
+      .feature-list span { color: var(--muted); font-size: 13px; }
+      .feature-list strong { display: block; color: var(--ink); font-size: 15px; margin-bottom: 3px; }
+      .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 18px; }
+      .card { background: var(--panel); border: 1px solid var(--line); padding: 25px; border-radius: 13px; }
+      .card-number { color: var(--purple); font-size: 11px; letter-spacing: 1px; }
+      .card h3 { font-size: 19px; letter-spacing: -.5px; margin: 23px 0 10px; }
+      .card p { font-size: 13px; color: var(--muted); margin: 0; }
+      .process { background: #15151b; border-block: 1px solid var(--line); }
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 46px; }
+      .step { padding-top: 20px; border-top: 1px solid var(--line); }
+      .step > span { font-size: 12px; color: var(--lime); }
+      .step h3 { font-size: 23px; letter-spacing: -.7px; }
+      .step p { color: var(--muted); font-size: 14px; }
+      .statement { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+      .statement p { color: var(--muted); margin-top: 0; }
+      .statement .highlight { color: var(--ink); font-size: 21px; }
+      .faq { border-top: 1px solid var(--line); }
+      .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 65px; }
+      details { border-bottom: 1px solid var(--line); padding: 20px 0; }
+      summary { cursor: pointer; font-size: 16px; font-weight: 700; }
+      details p { color: var(--muted); font-size: 14px; }
+      .contact { padding-top: 0; }
+      .contact-panel { padding: 48px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+      .contact-copy > p:not(.eyebrow) { color: var(--muted); }
+      .contact-copy .tagline { color: var(--lime); margin-top: 35px; font-size: 13px; }
+      label { display: block; font-size: 12px; margin-bottom: 6px; }
+      input, textarea, select { width: 100%; background: #101014; color: var(--ink); border: 1px solid #ffffff38; border-radius: 6px; padding: 11px 13px; margin-bottom: 17px; font-size: 14px; }
+      input::placeholder, textarea::placeholder { color: #918d9b; }
+      textarea { min-height: 100px; resize: vertical; }
+      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .form-note { font-size: 12px; color: var(--muted); }
+      .draft-panel { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+      [hidden] { display: none !important; }
+      footer { padding: 30px 0; border-top: 1px solid var(--line); }
+      .footer-row { display: flex; justify-content: space-between; gap: 20px; align-items: center; font-size: 12px; color: var(--muted); }
+      .footer-row strong { color: var(--ink); }
+      @media (max-width: 900px) {
+        .hero { gap: 25px; }
+        h1 { font-size: 66px; letter-spacing: -4px; }
+        .cards { grid-template-columns: repeat(2, 1fr); }
+        .contact-panel { padding: 30px; gap: 30px; }
+        .nav-links { gap: 16px; }
+        .nav-links .optional { display: none; }
+      }
+      @media (max-width: 650px) {
+        .wrap { width: calc(100% - 36px); }
+        .nav { min-height: 76px; }
+        .nav-links > a:not(.button) { display: none; }
+        .nav-links .button { padding: 11px 14px; min-height: 44px; }
+        .hero { grid-template-columns: 1fr; padding-top: 52px; gap: 35px; }
+        h1 { font-size: clamp(58px, 14vw, 80px); }
+        .hero-art { aspect-ratio: 1.12; }
+        .orb { width: 65%; left: 17.5%; top: 8%; }
+        .art-title { font-size: 30px; }
+        section { padding: 60px 0; }
+        .section-head, .footer-row { align-items: start; flex-direction: column; }
+        .section-head { gap: 20px; }
+        .feature, .statement, .faq-grid, .contact-panel { grid-template-columns: 1fr; }
+        .feature-main { padding: 27px; }
+        .feature-list { padding: 10px 27px; }
+        .steps { grid-template-columns: 1fr; gap: 20px; margin-top: 30px; }
+        .step h3 { margin: 12px 0; }
+        .statement, .faq-grid { gap: 25px; }
+        .contact-panel { padding: 25px; }
+        .cards { gap: 10px; }
+        .card { padding: 20px; }
+        .form-row { grid-template-columns: 1fr; gap: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .button { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="#" aria-label="Loud Light Films home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">LOUD LIGHT<small>FILMS</small></span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#services">What we make</a>
+          <a href="#process">How it works</a>
+          <a class="optional" href="#questions">FAQ</a>
+          <a class="button" href="#start">Start your video <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="wrap hero">
+        <div>
+          <p class="eyebrow">Independent sound. Uncompromising vision.</p>
+          <h1>Your sound.<br>In <em>full view.</em></h1>
+          <p class="hero-copy"><strong>Music videos that match your sound—not a traditional production budget.</strong> AI-powered visuals. Purposeful editing. A complete creative treatment built around your music.</p>
+          <div class="actions">
+            <a class="button" href="#start">Let’s build your video <span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="#services">Explore the possibilities</a>
+          </div>
+          <p class="fine">Made for independent artists. Available to labels and managers.</p>
+        </div>
+        <div class="hero-art" role="img" aria-label="Abstract luminous sphere with an orbital ring, an illustration of sound becoming light">
+          <div class="art-grid"></div>
+          <div class="orb"></div>
+          <div class="orbit"></div>
+          <div class="art-top"><span>LOUD LIGHT / CREATIVE SIGNAL</span><span>AI × IMAGINATION</span></div>
+          <div class="art-title">Make it heard.<br>Make it seen.</div>
+          <div class="art-bottom"><span>ORIGINAL SOUND. NEW DIMENSIONS.</span><span>001</span></div>
+        </div>
+      </div>
+
+      <div class="wrap strip" aria-label="Service highlights">
+        <span>Artist-first budgets</span>
+        <span>AI-powered production</span>
+        <span>Three creative concepts</span>
+        <span>Promo clips included</span>
+      </div>
+
+      <section id="services" class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">The music comes first</p>
+            <h2>Not just visuals.<br>Your song’s world.</h2>
+          </div>
+          <p>A single deserves more than a static cover. Give your music a visual identity, a story, and a life beyond the audio.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-main">
+            <p class="eyebrow">The main event</p>
+            <h3>A full music video.<br>Built around your track.</h3>
+            <p>A complete visual treatment with a defined concept and editing approach. We use AI as the creative engine to bring your song’s mood, energy, and story into view—without building the project around a traditional shoot.</p>
+            <p>Affordable by design. Made for artists ready to release something worth watching.</p>
+          </div>
+          <div class="feature-list">
+            <div><b>05</b><span><strong>Up to five minutes</strong>A complete treatment for your song, within a five-minute maximum.</span></div>
+            <div><b>03</b><span><strong>Three concepts to explore</strong>Choose the creative direction that feels right for your music.</span></div>
+            <div><b>03</b><span><strong>Three revision rounds included</strong>Refine the chosen direction. Further changes are quoted separately.</span></div>
+            <div><b>+</b><span><strong>Promotional clips included</strong>Support your release with excerpts from your finished video.</span></div>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card"><span class="card-number">ALSO IN THE MIX / 01</span><h3>Visualizers</h3><p>A visual atmosphere that moves with your music. Keep the focus on the sound while giving it a world of its own.</p></article>
+          <article class="card"><span class="card-number">ALSO IN THE MIX / 02</span><h3>Lyric videos</h3><p>Put your words in the spotlight with timed lyrics and a visual style shaped around the song.</p></article>
+          <article class="card"><span class="card-number">ALSO IN THE MIX / 03</span><h3>Promotion clips</h3><p>Give your release more moments to share. Promotional clips are included with your full music video.</p></article>
+          <article class="card"><span class="card-number">ALSO IN THE MIX / 04</span><h3>Hybrid videos</h3><p>Bring your own footage into the picture. Combine performance or personal material with AI-generated imagery.</p></article>
+        </div>
+      </section>
+
+      <section id="process" class="process">
+        <div class="wrap">
+          <div class="section-head">
+            <div><p class="eyebrow">Less production friction</p><h2>From your track.<br>To your next release.</h2></div>
+            <p>A focused creative process, designed to move your project forward without the complexity of a conventional production.</p>
+          </div>
+          <div class="steps">
+            <article class="step"><span>01 / SHARE THE SOUND</span><h3>Bring us your track.</h3><p>Tell us about the song, your influences, your budget, and your release plans. We’ll define the scope before production begins.</p></article>
+            <article class="step"><span>02 / FIND THE VISION</span><h3>Choose your direction.</h3><p>Explore three concepts. Pick a direction, then let AI-powered production and editing turn the idea into a complete visual treatment.</p></article>
+            <article class="step"><span>03 / MAKE IT YOURS</span><h3>Refine. Release. Repeat.</h3><p>Use your three included revision rounds to refine the video. Receive your final deliverables and promotional clips, ready for your release plan.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap statement">
+        <div><p class="eyebrow">Big ideas. Independent spirit.</p><h2>You bring the music.<br>We bring it to light.</h2></div>
+        <div><p class="highlight">Your budget shouldn’t decide how far your imagination goes.</p><p>Loud Light Films puts independent artists first. AI is our primary production vehicle, helping us take a different route to music-video creation: less emphasis on traditional production overhead, more emphasis on the creative idea.</p><p>No one-size-fits-all price promises. Share your track and we’ll scope an affordable approach around the work it needs.</p><a href="#start" class="button secondary">Tell us what you’re making <span aria-hidden="true">↗</span></a></div>
+      </section>
+
+      <section id="questions" class="faq">
+        <div class="wrap faq-grid">
+          <div><p class="eyebrow">Before the first frame</p><h2>A few things<br>worth knowing.</h2></div>
+          <div>
+            <details><summary>How much does a music video cost?</summary><p>Our focus is affordable production for independent artists. Pricing is quoted around your song and creative requirements. The agreed scope includes three concepts, three revision rounds, and promotional clips. Additional work is quoted before it proceeds.</p></details>
+            <details><summary>How quickly can you deliver?</summary><p>Fast production is central to our approach. Your actual schedule will be agreed after we review the track, creative direction, and release needs. No delivery date is confirmed until the project is scoped.</p></details>
+            <details><summary>Can you work with my footage or show me in the video?</summary><p>Hybrid videos can combine your footage with AI-generated visuals. Tell us whether appearing on screen is important; artist likeness and performance requirements will be reviewed as part of the concept and project agreement.</p></details>
+            <details><summary>What files will I receive?</summary><p>We deliver in industry-standard resolution and aspect ratios appropriate to the agreed release plan. Exact formats and promotional-clip specifications are confirmed in the project scope.</p></details>
+            <details><summary>Who owns the finished content?</summary><p>At project completion and final payment, the client receives the digital rights to the finished content that Loud Light Films owns and can transfer. The project agreement defines the transfer and identifies any third-party licenses or limits applicable to AI-generated material.</p><p>You must have permission to use music, images, footage, and likenesses supplied for the project.</p></details>
+            <details><summary>Do you work with record labels?</summary><p>Yes. Independent artists come first, and labels, managers, and artist teams are welcome to discuss individual releases or multiple projects.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section id="start" class="wrap contact">
+        <div class="contact-panel">
+          <div class="contact-copy">
+            <p class="eyebrow">Your next release starts here</p>
+            <h2>Got a track?<br>Let’s find<br>its light.</h2>
+            <p>Tell us what you’re making and where you want to take it. Start with the sound. We’ll build from there.</p>
+            <p class="tagline">LOUD LIGHT FILMS<br>Independent artists. Extraordinary possibilities.</p>
+          </div>
+          <div>
+            <!-- LAUNCH SETUP: Connect a verified inquiry endpoint or business email before accepting submissions. No address is assumed here. -->
+            <form id="brief-form">
+              <div class="form-row">
+                <div><label for="artist">Artist / label name</label><input id="artist" name="artist" autocomplete="organization" maxlength="150" placeholder="Your artist or label name" required></div>
+                <div><label for="email">Your email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required></div>
+              </div>
+              <label for="track">Track link (optional)</label>
+              <input id="track" name="track" type="url" placeholder="https://…" maxlength="2000">
+              <div class="form-row">
+                <div><label for="service">What are you looking for?</label><select id="service" name="service"><option>Full music video</option><option>Visualizer</option><option>Lyric video</option><option>Promotion clips</option><option>Hybrid video</option><option>Not sure yet</option></select></div>
+                <div><label for="budget">Budget range (optional)</label><input id="budget" name="budget" placeholder="Your target budget" maxlength="100"></div>
+              </div>
+              <label for="vision">Tell us about your vision</label>
+              <textarea id="vision" name="vision" maxlength="5000" placeholder="The song, the mood, references, song length, and your target release date…" required></textarea>
+              <button class="button" type="submit">Prepare my project brief <span aria-hidden="true">↗</span></button>
+              <p class="form-note">Preview mode: this form creates a brief on your device only. It does not send an inquiry or upload your details. A contact destination will be connected before launch.</p>
+            </form>
+            <div class="draft-panel" id="draft-panel" hidden>
+              <label for="brief-output">Your project brief — not sent</label>
+              <textarea id="brief-output" readonly rows="10"></textarea>
+              <button class="button secondary" id="download-brief" type="button">Save brief as text</button>
+            </div>
+            <p id="form-status" class="form-note" role="status" aria-live="polite"></p>
+            <noscript><p class="form-note">Preparing a brief requires JavaScript. Inquiry submission is not yet connected.</p></noscript>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-row">
+        <strong>LOUD LIGHT FILMS</strong>
+        <span>Your sound. In full view.</span>
+        <a href="https://loudlightfilms.net">loudlightfilms.net</a>
+      </div>
+    </footer>
+
+    <script>
+      const form = document.getElementById('brief-form');
+      const output = document.getElementById('brief-output');
+      const status = document.getElementById('form-status');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        output.value = [
+          'LOUD LIGHT FILMS — PROJECT BRIEF',
+          '',
+          `Artist / label: ${data.get('artist')}`,
+          `Email: ${data.get('email')}`,
+          `Track link: ${data.get('track') || 'Not provided'}`,
+          `Service: ${data.get('service')}`,
+          `Budget: ${data.get('budget') || 'Not provided'}`,
+          '',
+          'VISION / PROJECT DETAILS',
+          data.get('vision'),
+          '',
+          'This brief has not been sent.'
+        ].join('\n');
+        document.getElementById('draft-panel').hidden = false;
+        status.textContent = 'Your brief is ready to review and save. Nothing has been sent.';
+        output.focus();
+      });
+
+      document.getElementById('download-brief').addEventListener('click', () => {
+        const blob = new Blob([output.value], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'loud-light-project-brief.txt';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        status.textContent = 'Your brief has been saved to your device. It has not been sent.';
+      });
+    </script>
+  </body>
+</html>
